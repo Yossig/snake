@@ -23,7 +23,7 @@ export default class Snake {
         this.length = 3;
         this._score = 0;
         this._lifetime = 0;
-        this._ttl = 450;
+        this._ttl = 200;
     }
 
     moveUp() {
@@ -108,6 +108,7 @@ export default class Snake {
     }
 
     grow() {
+        this._ttl += 100;
         this.length += 2;
     }
 }

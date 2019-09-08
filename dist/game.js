@@ -98,10 +98,6 @@ export default class Game {
 
         this.context.fillStyle = "red";
         this.context.fillRect(this.apple.x * this.blockSize, this.apple.y * this.blockSize, this.blockSize, this.blockSize)
-
-
-        this.context.fillStyle = "white";
-        this.context.fillRect(0, this.dimensions, this.dimensions, 100)
     }
 
     checkCollision() {
