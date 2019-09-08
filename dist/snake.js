@@ -60,8 +60,8 @@ export default class Snake {
     }
 
     get fitness() {
-        //return this.length * this._lifetime * this._lifetime
-        return this._lifetime;
+        return this.length * this.length * this._lifetime
+        //return this._lifetime;
     }
 
     get ttl() {

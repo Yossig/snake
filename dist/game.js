@@ -88,8 +88,8 @@ export default class Game {
             this.context.fillRect(joint.x * this.blockSize, joint.y * this.blockSize, this.blockSize - 2, this.blockSize - 2)
         })
 
-        /*this.context.fillStyle = "red";
-        this.context.fillRect(this.apple.x * this.blockSize, this.apple.y * this.blockSize, this.blockSize, this.blockSize)*/
+        this.context.fillStyle = "red";
+        this.context.fillRect(this.apple.x * this.blockSize, this.apple.y * this.blockSize, this.blockSize, this.blockSize)
 
 
         this.context.fillStyle = "white";
