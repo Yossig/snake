@@ -21,7 +21,7 @@ export default class Brain {
                 let weightsLayer = []
                 for (let weightIndex = 0; weightIndex < this.neuroLayers[layerIndex + 1].length; weightIndex++) {
                     if (alphaBrain) {
-                        weightsLayer.push(alphaBrain.neuroWeights[layerIndex][groupIndex][weightIndex] + (Math.random() >= 0.5 ? Math.random() >= 0.5 ? 0.1 : -0.1 : 0));
+                        weightsLayer.push(alphaBrain.neuroWeights[layerIndex][groupIndex][weightIndex] + (Math.random() >= 0.5 ? Math.random() >= 0.5 ? 0.05 : -0.05 : 0));
                     }
                     else {
                         weightsLayer.push(0.0001);
