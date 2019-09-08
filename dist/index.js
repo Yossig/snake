@@ -3,9 +3,9 @@ import Game from './game.js';
 window.onload = () => {
     let canv = document.getElementById("gc");
     let ctx = canv.getContext("2d");
-    let fps = 15
+    let fps = 100
     let games = [];
-    let generationSize = 1;
+    let generationSize = 2000;
 
     for (let index = 0; index < generationSize; index++) {
         games.push(new Game(ctx, 400))
@@ -17,15 +17,16 @@ window.onload = () => {
 
             // get best game score
             let alpha = games[games.map(game => {
-                return game.score
-            }).indexOf(Math.max(...games.map(game => { return game.score })))];
-            console.log(alpha.score)
-            games = [];
+                return game.snake.fitness
+            }).indexOf(Math.max(...games.map(game => { return game.snake.fitness })))];
+            console.log(alpha.snake.fitness)
+            
             for (let index = 0; index < generationSize; index++) {
-                games.push(new Game(ctx, 400, alpha.snake))
+                games[index].restartGame(alpha.snake)
             }
 
             gameInterval = setInterval(() => {
+                ctx.clearRect(0,0,400,400);
                 ctx.fillStyle = "black"
                 ctx.fillRect(0, 0, 400, 400);
 

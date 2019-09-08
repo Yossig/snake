@@ -11,11 +11,10 @@ export default class Game {
     score;
     isRunning;
 
-    constructor(canvasContext, dimensions, alphaSnake) {
+    constructor(canvasContext, dimensions) {
         this.context = canvasContext;
         this.dimensions = dimensions;
         this.blockSize = dimensions / this.gridSize
-        this.alphaSnake = alphaSnake;
 
         document.addEventListener("keydown", (event) => {
             this.HandleKeyboardEvent(event);
@@ -24,10 +23,10 @@ export default class Game {
         this.restartGame();
     }
 
-    restartGame() {
+    restartGame(alphaSnake) {
         this.isRunning = true;
         this.score = 0;
-        this.snake.init({ x: this.gridSize / 2, y: this.gridSize / 2 }, this.alphaSnake);
+        this.snake.init({ x: this.gridSize / 2, y: this.gridSize / 2 }, alphaSnake);
         this.apple = this.generateRandomPositionOnGrid()
     }
 
@@ -54,12 +53,15 @@ export default class Game {
 
     update() {
         if (this.isRunning) {
-
             this.snake.makeDecision([
                 this.snake.position.x,
-                this.gridSize - this.snake.position.x,
+                Math.min(this.snake.position.x, this.snake.position.y),
                 this.snake.position.y,
+                Math.min(this.snake.position.y, this.gridSize - this.snake.position.x),
+                this.gridSize - this.snake.position.x,
+                Math.min(this.gridSize - this.snake.position.x, this.gridSize - this.snake.position.y),
                 this.gridSize - this.snake.position.y,
+                Math.min(this.snake.position.x, this.gridSize - this.snake.position.y)
             ])
             this.snake.updatePosition();
 
@@ -68,7 +70,7 @@ export default class Game {
                 this.score += 10;
                 this.apple = this.generateRandomPositionOnGrid();
             }
-            if (!this.checkCollision()) {
+            if (!this.checkCollision() && this.snake.ttl >= 0) {
                 //this.restartGame();
                 this.draw();
             } else {
@@ -86,8 +88,8 @@ export default class Game {
             this.context.fillRect(joint.x * this.blockSize, joint.y * this.blockSize, this.blockSize - 2, this.blockSize - 2)
         })
 
-        this.context.fillStyle = "red";
-        this.context.fillRect(this.apple.x * this.blockSize, this.apple.y * this.blockSize, this.blockSize, this.blockSize)
+        /*this.context.fillStyle = "red";
+        this.context.fillRect(this.apple.x * this.blockSize, this.apple.y * this.blockSize, this.blockSize, this.blockSize)*/
 
 
         this.context.fillStyle = "white";

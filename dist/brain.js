@@ -2,14 +2,12 @@ export default class Brain {
     neuroLayers;
     neuroWeights;
     neuroBiases;
-    inputSize = 4;
+    inputSize = 8;
     outputSize = 4;
-    size = 2;
-    depth = 1;
+    size = 18;
+    depth = 2;
 
     constructor(alphaBrain) {
-        //this.neuroWeights = weights;
-        //this.neuroBiases = biases;
         this.neuroLayers = this.initNeuroMatrix();
         this.neuroWeights = this.initWeights(alphaBrain);
     }
@@ -23,10 +21,10 @@ export default class Brain {
                 let weightsLayer = []
                 for (let weightIndex = 0; weightIndex < this.neuroLayers[layerIndex + 1].length; weightIndex++) {
                     if (alphaBrain) {
-                        weightsLayer.push(alphaBrain.neuroWeights[layerIndex][groupIndex][weightIndex] + (Math.random() >= 0.5 ? 0.5 : -0.5));
+                        weightsLayer.push(alphaBrain.neuroWeights[layerIndex][groupIndex][weightIndex] + (Math.random() >= 0.5 ? 0.1 : -0.1));
                     }
                     else {
-                        weightsLayer.push(Math.random()*100);
+                        weightsLayer.push(0.0001);
                     }
                 }
                 weightsGroup.push(weightsLayer);
@@ -50,7 +48,7 @@ export default class Brain {
 
             }
             for (let neuronIndex = 0; neuronIndex < this.neuroLayers[layerIndex + 1].length; neuronIndex++) {
-                this.neuroLayers[layerIndex + 1][neuronIndex] = Math.max(0, this.neuroLayers[layerIndex + 1][neuronIndex])
+                this.neuroLayers[layerIndex + 1][neuronIndex] = this.sigmoid(this.neuroLayers[layerIndex + 1][neuronIndex])
             }
         }
 
@@ -58,11 +56,15 @@ export default class Brain {
         return this.neuroLayers[this.depth + 1].indexOf(Math.max(...this.neuroLayers[this.depth + 1]));
     }
 
+    sigmoid(t) {
+        return 1 / (1 + Math.pow(Math.E, -t));
+    }
+
     initNeuroMatrix() {
         let neuroMatrix = [];
 
         // input layer
-        neuroMatrix.push([0, 0, 0, 0])
+        neuroMatrix.push([0, 0, 0, 0, 0, 0, 0, 0])
 
         for (let depthIndex = 0; depthIndex < this.depth; depthIndex++) {
             let layer = [];
