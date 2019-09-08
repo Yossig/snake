@@ -23,10 +23,10 @@ export default class Game {
         this.restartGame();
     }
 
-    restartGame(alphaSnake) {
+    restartGame(alphaBrain) {
         this.isRunning = true;
         this.score = 0;
-        this.snake.init({ x: this.gridSize / 2, y: this.gridSize / 2 }, alphaSnake);
+        this.snake.init({ x: this.gridSize / 2, y: this.gridSize / 2 }, alphaBrain);
         this.apple = this.generateRandomPositionOnGrid()
     }
 

@@ -2,9 +2,9 @@ import Brain from './brain.js'
 
 export default class Snake {
 
-    init(position, alphaSnake) {
-        if (alphaSnake)
-            this._brain = new Brain(alphaSnake.brain);
+    init(position, alphaBrain) {
+        if (alphaBrain)
+            this._brain = new Brain(alphaBrain);
         else
             this._brain = new Brain();
 
@@ -60,7 +60,7 @@ export default class Snake {
     }
 
     get fitness() {
-        return Math.pow(2, this.length*this.length)
+        return Math.pow(2, this.length) * this._lifetime
         //return this._lifetime;
         //return this.length;
     }

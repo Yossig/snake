@@ -25,19 +25,23 @@ window.onload = () => {
 
 
             // get best snake fitness
-            let alpha = games[games.map(game => {
+            let alphaIndex = games.map(game => {
                 return game.snake.fitness
-            }).indexOf(Math.max(...games.map(game => { return game.snake.fitness })))];
-            console.log(alpha.snake.length)
-            ctx.fillStyle = "white";    
+            }).indexOf(Math.max(...games.map(game => { return game.snake.fitness })));
+
+            console.log(games[alphaIndex].snake.length)
+            ctx.fillStyle = "white";
             ctx.fillRect(0, 400, 500, 100)
             ctx.fillStyle = "black"
             ctx.font = "30px Arial"
-            ctx.fillText(`Generation: ${generationCounter},Max Length: ${alpha.snake.length}`, 0, 450)
+            ctx.fillText(`Generation: ${generationCounter},Max Length: ${games[alphaIndex].snake.length}`, 0, 450)
 
             for (let index = 0; index < generationSize; index++) {
-                games[index].restartGame(alpha.snake)
+                if (index != alphaIndex)
+                    games[index].restartGame(games[alphaIndex].snake.brain)
             }
+
+            games[alphaIndex].restartGame(games[alphaIndex].snake.brain)
 
 
 
