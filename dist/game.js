@@ -54,14 +54,14 @@ export default class Game {
     update() {
         if (this.isRunning) {
             this.snake.makeDecision([
-                1/this.snake.position.x,
-                1/Math.min(this.snake.position.x, this.snake.position.y),
-                1/this.snake.position.y,
-                1/Math.min(this.snake.position.y, this.gridSize - this.snake.position.x),
-                1/(this.gridSize - this.snake.position.x),
-                1/Math.min(this.gridSize - this.snake.position.x, this.gridSize - this.snake.position.y),
-                1/(this.gridSize - this.snake.position.y),
-                1/Math.min(this.snake.position.x, this.gridSize - this.snake.position.y),
+                this.snake.position.x,
+                Math.min(this.snake.position.x, this.snake.position.y),
+                this.snake.position.y,
+                Math.min(this.snake.position.y, this.gridSize - this.snake.position.x),
+                (this.gridSize - this.snake.position.x),
+                Math.min(this.gridSize - this.snake.position.x, this.gridSize - this.snake.position.y),
+                (this.gridSize - this.snake.position.y),
+                Math.min(this.snake.position.x, this.gridSize - this.snake.position.y),
                 (this.apple.y === this.snake.position.y && this.apple.x <= this.snake.position.x) * 1,
                 (Math.abs(this.apple.y - this.apple.x) === Math.abs(this.snake.position.y - this.snake.position.x) && this.apple.y > this.snake.position.y && this.apple.x < this.snake.position.x) *1,
                 (this.apple.x === this.snake.position.x && this.apple.y <= this.snake.position.y) * this.gridSize,
