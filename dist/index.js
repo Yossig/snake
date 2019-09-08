@@ -3,7 +3,7 @@ import Game from './game.js';
 window.onload = () => {
     let canv = document.getElementById("gc");
     let ctx = canv.getContext("2d");
-    let fps = 100
+    let fps = 60
     let games = [];
     let generationSize = 2000;
     let generationCounter = 0;

@@ -62,14 +62,19 @@ export default class Game {
                 Math.min(this.gridSize - this.snake.position.x, this.gridSize - this.snake.position.y),
                 this.gridSize - this.snake.position.y,
                 Math.min(this.snake.position.x, this.gridSize - this.snake.position.y),
-                (this.apple.y === this.snake.position.y && this.apple.x <= this.snake.position.x)*this.gridSize,
-                (Math.abs(this.apple.y - this.apple.x) === Math.abs(this.snake.position.y - this.snake.position.x) && this.apple.y > this.snake.position.y && this.apple.x < this.snake.position.x)*this.gridSize,
-                (this.apple.x === this.snake.position.x && this.apple.y <= this.snake.position.y)*this.gridSize,
-                (Math.abs(this.apple.y + this.apple.x) === Math.abs(this.snake.position.y + this.snake.position.x) && this.apple.y > this.snake.position.y && this.apple.x > this.snake.position.x)*this.gridSize,
-                (this.apple.y === this.snake.position.y && this.apple.x >= this.snake.position.x)*this.gridSize,
-                (Math.abs(this.apple.y - this.apple.x) === Math.abs(this.snake.position.y - this.snake.position.x) && this.apple.y < this.snake.position.y && this.apple.x > this.snake.position.x)*this.gridSize,
-                (this.apple.x === this.snake.position.x && this.apple.y >= this.snake.position.y)*this.gridSize,
-                (Math.abs(this.apple.y + this.apple.x) === Math.abs(this.snake.position.y + this.snake.position.x) && this.apple.y > this.snake.position.y && this.apple.x < this.snake.position.x)*this.gridSize,
+                (this.apple.y === this.snake.position.y && this.apple.x <= this.snake.position.x) * this.gridSize,
+                (Math.abs(this.apple.y - this.apple.x) === Math.abs(this.snake.position.y - this.snake.position.x) && this.apple.y > this.snake.position.y && this.apple.x < this.snake.position.x) * this.gridSize,
+                (this.apple.x === this.snake.position.x && this.apple.y <= this.snake.position.y) * this.gridSize,
+                (Math.abs(this.apple.y + this.apple.x) === Math.abs(this.snake.position.y + this.snake.position.x) && this.apple.y > this.snake.position.y && this.apple.x > this.snake.position.x) * this.gridSize,
+                (this.apple.y === this.snake.position.y && this.apple.x >= this.snake.position.x) * this.gridSize,
+                (Math.abs(this.apple.y - this.apple.x) === Math.abs(this.snake.position.y - this.snake.position.x) && this.apple.y < this.snake.position.y && this.apple.x > this.snake.position.x) * this.gridSize,
+                (this.apple.x === this.snake.position.x && this.apple.y >= this.snake.position.y) * this.gridSize,
+                (Math.abs(this.apple.y + this.apple.x) === Math.abs(this.snake.position.y + this.snake.position.x) && this.apple.y > this.snake.position.y && this.apple.x < this.snake.position.x) * this.gridSize,
+                this.snake.tail.reduce((result, val) => result || (val.y === this.snake.position.y && val.x <= this.snake.position.x), false) * this.gridSize,
+                this.snake.tail.reduce((result, val) => result || (val.x === this.snake.position.x && val.y <= this.snake.position.y), false) * this.gridSize,
+                this.snake.tail.reduce((result, val) => result || (val.y === this.snake.position.y && val.x >= this.snake.position.x), false) * this.gridSize,
+                this.snake.tail.reduce((result, val) => result || (val.x === this.snake.position.x && val.y >= this.snake.position.y), false) * this.gridSize,
+
             ])
             this.snake.updatePosition();
 

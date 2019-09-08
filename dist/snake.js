@@ -61,8 +61,8 @@ export default class Snake {
 
     get fitness() {
         return Math.pow(2, this.length) * this._lifetime
-        //return this._lifetime;
-        //return this.length;
+        //return this._lifetime*this.length;
+        //return this.length; 
     }
 
     get ttl() {
