@@ -28,8 +28,8 @@ window.onload = () => {
             let alpha = games[games.map(game => {
                 return game.snake.fitness
             }).indexOf(Math.max(...games.map(game => { return game.snake.fitness })))];
-
-            ctx.fillStyle = "white";
+            console.log(alpha.snake.length)
+            ctx.fillStyle = "white";    
             ctx.fillRect(0, 400, 500, 100)
             ctx.fillStyle = "black"
             ctx.font = "30px Arial"

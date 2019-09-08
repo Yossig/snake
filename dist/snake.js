@@ -23,7 +23,7 @@ export default class Snake {
         this.length = 3;
         this._score = 0;
         this._lifetime = 0;
-        this._ttl = 200;
+        this._ttl = 150;
     }
 
     moveUp() {
@@ -60,7 +60,7 @@ export default class Snake {
     }
 
     get fitness() {
-        return Math.pow(2, this.length) * this._lifetime
+        return Math.pow(2, this.length*this.length)
         //return this._lifetime;
         //return this.length;
     }
