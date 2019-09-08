@@ -23,7 +23,7 @@ export default class Snake {
         this.length = 3;
         this._score = 0;
         this._lifetime = 0;
-        this._ttl = 400;
+        this._ttl = 450;
     }
 
     moveUp() {
@@ -60,8 +60,9 @@ export default class Snake {
     }
 
     get fitness() {
-        return this.length * this.length * this._lifetime
+        return Math.pow(2, this.length) * this._lifetime
         //return this._lifetime;
+        //return this.length;
     }
 
     get ttl() {
@@ -70,9 +71,6 @@ export default class Snake {
 
     makeDecision(input) {
         let output = this._brain.makeDecision(input)
-        this._lifetime++;
-        this._ttl--;
-
         switch (output) {
             case 0: {
                 this.moveUp();
@@ -94,6 +92,8 @@ export default class Snake {
     }
 
     updatePosition() {
+        this._lifetime++;
+        this._ttl--;
         this._tail.push({ x: this._position.x, y: this._position.y })
         this._position.x += this._direction.xv;
         this._position.y += this._direction.yv;

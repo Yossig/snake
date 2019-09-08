@@ -2,10 +2,10 @@ export default class Brain {
     neuroLayers;
     neuroWeights;
     neuroBiases;
-    inputSize = 8;
+    inputSize = 16;
     outputSize = 4;
     size = 18;
-    depth = 2;
+    depth = 1;
 
     constructor(alphaBrain) {
         this.neuroLayers = this.initNeuroMatrix();
@@ -64,7 +64,12 @@ export default class Brain {
         let neuroMatrix = [];
 
         // input layer
-        neuroMatrix.push([0, 0, 0, 0, 0, 0, 0, 0])
+        let inputLayer = []
+        for (let index = 0; index < this.inputSize; index++) {
+           inputLayer.push(0);
+            
+        }
+        neuroMatrix.push(inputLayer)
 
         for (let depthIndex = 0; depthIndex < this.depth; depthIndex++) {
             let layer = [];

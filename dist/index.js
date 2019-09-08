@@ -15,11 +15,11 @@ window.onload = () => {
         if (!games.reduce((a, b) => a || b.isRunning, false)) {
             clearInterval(gameInterval)
 
-            // get best game score
+            // get best snake fitness
             let alpha = games[games.map(game => {
                 return game.snake.fitness
             }).indexOf(Math.max(...games.map(game => { return game.snake.fitness })))];
-            console.log(alpha.snake.fitness)
+            console.log(alpha.snake.length)
             
             for (let index = 0; index < generationSize; index++) {
                 games[index].restartGame(alpha.snake)
@@ -34,8 +34,6 @@ window.onload = () => {
                     game.update();
                 })
 
-                // generate generation with best snake barin
-
             }, 1000 / fps)
         }
     }, 10)
@@ -47,9 +45,6 @@ window.onload = () => {
         games.forEach(game => {
             game.update();
         })
-        //cehck if all snakes died.
-        // get best snake
-        // generate generation with best snake barin
 
     }, 1000 / fps)
 

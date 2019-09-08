@@ -61,7 +61,15 @@ export default class Game {
                 this.gridSize - this.snake.position.x,
                 Math.min(this.gridSize - this.snake.position.x, this.gridSize - this.snake.position.y),
                 this.gridSize - this.snake.position.y,
-                Math.min(this.snake.position.x, this.gridSize - this.snake.position.y)
+                Math.min(this.snake.position.x, this.gridSize - this.snake.position.y),
+                (this.apple.y === this.snake.position.y && this.apple.x <= this.snake.position.x)*this.gridSize,
+                (Math.abs(this.apple.y - this.apple.x) === Math.abs(this.snake.position.y - this.snake.position.x) && this.apple.y > this.snake.position.y && this.apple.x < this.snake.position.x)*this.gridSize,
+                (this.apple.x === this.snake.position.x && this.apple.y <= this.snake.position.y)*this.gridSize,
+                (Math.abs(this.apple.y + this.apple.x) === Math.abs(this.snake.position.y + this.snake.position.x) && this.apple.y > this.snake.position.y && this.apple.x > this.snake.position.x)*this.gridSize,
+                (this.apple.y === this.snake.position.y && this.apple.x >= this.snake.position.x)*this.gridSize,
+                (Math.abs(this.apple.y - this.apple.x) === Math.abs(this.snake.position.y - this.snake.position.x) && this.apple.y < this.snake.position.y && this.apple.x > this.snake.position.x)*this.gridSize,
+                (this.apple.x === this.snake.position.x && this.apple.y >= this.snake.position.y)*this.gridSize,
+                (Math.abs(this.apple.y + this.apple.x) === Math.abs(this.snake.position.y + this.snake.position.x) && this.apple.y > this.snake.position.y && this.apple.x < this.snake.position.x)*this.gridSize,
             ])
             this.snake.updatePosition();
 
@@ -103,6 +111,7 @@ export default class Game {
         this.snake.tail.forEach(joint => {
             if (this.snake.position.x === joint.x && this.snake.position.y === joint.y) {
                 collision = true;
+                console.log("snake killed himself", this.snake.length)
             }
         })
 
