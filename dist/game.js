@@ -2,19 +2,20 @@ import Snake from './snake.js'
 
 export default class Game {
     snake = new Snake();
-    frameRate = 15;
-    gridSize = 20;
+    gridSize = 40;
     blockSize;
     dimensions;
     context;
     gameInterval;
     apple;
     score;
+    isRunning;
 
-    constructor(canvasContext, dimensions) {
+    constructor(canvasContext, dimensions, alphaSnake) {
         this.context = canvasContext;
         this.dimensions = dimensions;
         this.blockSize = dimensions / this.gridSize
+        this.alphaSnake = alphaSnake;
 
         document.addEventListener("keydown", (event) => {
             this.HandleKeyboardEvent(event);
@@ -24,8 +25,9 @@ export default class Game {
     }
 
     restartGame() {
+        this.isRunning = true;
         this.score = 0;
-        this.snake.init({ x: this.gridSize / 2, y: this.gridSize / 2 });
+        this.snake.init({ x: this.gridSize / 2, y: this.gridSize / 2 }, this.alphaSnake);
         this.apple = this.generateRandomPositionOnGrid()
     }
 
@@ -51,19 +53,28 @@ export default class Game {
     }
 
     update() {
-        this.snake.updatePosition();
+        if (this.isRunning) {
 
-        if (this.checkCollision()) {
-            this.restartGame();
+            this.snake.makeDecision([
+                this.snake.position.x,
+                this.gridSize - this.snake.position.x,
+                this.snake.position.y,
+                this.gridSize - this.snake.position.y,
+            ])
+            this.snake.updatePosition();
+
+            if (this.checkAppleEaten()) {
+                this.snake.grow();
+                this.score += 10;
+                this.apple = this.generateRandomPositionOnGrid();
+            }
+            if (!this.checkCollision()) {
+                //this.restartGame();
+                this.draw();
+            } else {
+                this.isRunning = false;
+            }
         }
-
-        if (this.checkAppleEaten()) {
-            this.apple = this.generateRandomPositionOnGrid();
-            this.score += 10;
-            this.snake.grow();
-        }
-
-        this.draw();
     }
 
     draw() {
@@ -81,10 +92,6 @@ export default class Game {
 
         this.context.fillStyle = "white";
         this.context.fillRect(0, this.dimensions, this.dimensions, 100)
-
-        this.context.fillStyle = "black";
-        this.context.font = "30px Ariel";
-        this.context.fillText(`Score: ${this.score}`, 0, this.dimensions + 50)
     }
 
     checkCollision() {
