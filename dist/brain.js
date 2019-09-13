@@ -2,7 +2,7 @@ export default class Brain {
     neuroLayers;
     neuroWeights;
     neuroBiases;
-    inputSize = 20;
+    inputSize = 24;
     outputSize = 4;
     size = 18;
     depth = 1;
